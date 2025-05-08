@@ -5,22 +5,21 @@
   --foreground: #171717;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+
+/* Custom pagination bullets */
+.swiper-pagination-bullet {
+  width: var(--swiper-pagination-bullet-size, 8px);
+  height: var(--swiper-pagination-bullet-size, 8px);
+  background: var(--swiper-pagination-bullet-inactive-color, #4B5563);
+  opacity: var(--swiper-pagination-bullet-inactive-opacity, 1);
+}
+
+.swiper-pagination-bullet-active {
+  background: var(--swiper-pagination-color, #4B5563);
 }
