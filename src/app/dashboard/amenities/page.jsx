@@ -4,7 +4,6 @@ import { useState, useEffect } from "react";
 import { X, Plus, Check, Copy, Save, Trash2 } from "lucide-react";
 
 export default function AmenitiesPage() {
-  // Initialize state with defaults loaded from localStorage if available
   const [hotelAmenities, setHotelAmenities] = useState([]);
   const [roomAmenities, setRoomAmenities] = useState({
     allRooms: [],
@@ -36,7 +35,6 @@ export default function AmenitiesPage() {
     },
   });
 
-  // Default amenity options
   const hotelOptions = [
     "Room Service",
     "24-Hour Front Desk",
@@ -73,7 +71,7 @@ export default function AmenitiesPage() {
     "Work Desk",
   ];
 
-  // Load data from localStorage on component mount
+  // Load data from localStorage
   useEffect(() => {
     try {
       const savedHotelAmenities = localStorage.getItem("hotelAmenities");
@@ -517,7 +515,6 @@ export default function AmenitiesPage() {
                       </span>
                     )}
                   </div>
-
                   <div className="flex justify-end">
                     <button
                       type="submit"

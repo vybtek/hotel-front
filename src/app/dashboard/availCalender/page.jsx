@@ -155,8 +155,10 @@ export default function EnhancedAvailabilityCalendar() {
           {/* Header */}
           <div className="bg-gray-100 p-6">
             <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-              <h1 className="text-2xl md:text-3xl font-bold text-gray-700">Hotel Room Availability</h1>
-              
+              <h1 className="text-2xl md:text-3xl font-bold text-gray-700">
+                Hotel Room Availability
+              </h1>
+
               <div className="flex gap-4 items-center">
                 <div className="relative">
                   <input
@@ -166,13 +168,30 @@ export default function EnhancedAvailabilityCalendar() {
                     onChange={(e) => setCurrentDate(new Date(e.target.value))}
                   />
                 </div>
-                
+
                 <button
                   onClick={openModal}
                   className="bg-white text-indigo-700 px-4 py-2 rounded-lg shadow hover:bg-indigo-50 transition-all font-medium flex items-center gap-2"
                 >
-                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <rect
+                      x="3"
+                      y="3"
+                      width="18"
+                      height="18"
+                      rx="2"
+                      ry="2"
+                    ></rect>
                     <line x1="12" y1="8" x2="12" y2="16"></line>
                     <line x1="8" y1="12" x2="16" y2="12"></line>
                   </svg>
@@ -210,20 +229,43 @@ export default function EnhancedAvailabilityCalendar() {
               onClick={handlePrev}
               className="flex items-center gap-1 text-blue-600 hover:text-blue-800 px-3 py-1 rounded-lg hover:bg-blue-50 transition-colors"
             >
-              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
                 <polyline points="15 18 9 12 15 6"></polyline>
               </svg>
               Previous
             </button>
             <h2 className="text-xl font-bold text-gray-800">
-              {new Date(days[0].dateStr).toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}
+              {new Date(days[0].dateStr).toLocaleDateString("en-US", {
+                month: "long",
+                year: "numeric",
+              })}
             </h2>
             <button
               onClick={handleNext}
               className="flex items-center gap-1 text-blue-600 hover:text-blue-800 px-3 py-1 rounded-lg hover:bg-blue-50 transition-colors"
             >
               Next
-              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
                 <polyline points="9 18 15 12 9 6"></polyline>
               </svg>
             </button>
@@ -238,11 +280,20 @@ export default function EnhancedAvailabilityCalendar() {
                     Room Category
                   </th>
                   {days.map((day, index) => (
-                    <th key={index} className="p-2 min-w-20 border-r border-gray-200 last:border-r-0">
+                    <th
+                      key={index}
+                      className="p-2 min-w-20 border-r border-gray-200 last:border-r-0"
+                    >
                       <div className="flex flex-col items-center">
-                        <span className="text-xs text-gray-500 font-medium">{day.weekday}</span>
-                        <span className="text-lg font-bold text-gray-800">{day.day}</span>
-                        <span className="text-xs text-gray-500">{day.month}</span>
+                        <span className="text-xs text-gray-500 font-medium">
+                          {day.weekday}
+                        </span>
+                        <span className="text-lg font-bold text-gray-800">
+                          {day.day}
+                        </span>
+                        <span className="text-xs text-gray-500">
+                          {day.month}
+                        </span>
                       </div>
                     </th>
                   ))}
@@ -254,7 +305,9 @@ export default function EnhancedAvailabilityCalendar() {
                     <tr className="hover:bg-blue-50/50 transition-colors">
                       <td className="sticky left-0 bg-white min-w-48 z-10 border-r border-gray-200 hover:bg-blue-50/50">
                         <div className="p-4">
-                          <div className="font-medium text-gray-800">{room.name}</div>
+                          <div className="font-medium text-gray-800">
+                            {room.name}
+                          </div>
                           <div className="text-xs text-gray-500 mt-1">
                             Total: {room.total} | Blocked: {room.blocked}
                           </div>
@@ -263,12 +316,17 @@ export default function EnhancedAvailabilityCalendar() {
                       {days.map((day, dayIndex) => {
                         const available = room.availability[day.dateStr] || 0;
                         const isAvailable = available > 0;
-                        const hasNoneAvailable = available === 0 && room.booked === 0;
-                        
+                        const hasNoneAvailable =
+                          available === 0 && room.booked === 0;
+
                         return (
-                          <td key={dayIndex} className="p-2 text-center border-r border-gray-200 last:border-r-0">
+                          <td
+                            key={dayIndex}
+                            className="p-2 text-center border-r border-gray-200 last:border-r-0"
+                          >
                             <div className="flex flex-col items-center gap-1">
-                              {editMode.roomIndex === roomIndex && editMode.dayIndex === dayIndex ? (
+                              {editMode.roomIndex === roomIndex &&
+                              editMode.dayIndex === dayIndex ? (
                                 <div className="flex items-center gap-1">
                                   <input
                                     type="number"
@@ -288,13 +346,15 @@ export default function EnhancedAvailabilityCalendar() {
                               ) : (
                                 <div className="mb-1">
                                   <div
-                                    onClick={() => handleEditClick(roomIndex, dayIndex)}
+                                    onClick={() =>
+                                      handleEditClick(roomIndex, dayIndex)
+                                    }
                                     className={`w-12 py-1 rounded-lg flex items-center justify-center font-medium cursor-pointer transition-colors ${
-                                      hasNoneAvailable 
-                                        ? "bg-red-500 text-white" 
+                                      hasNoneAvailable
+                                        ? "bg-red-500 text-white"
                                         : isAvailable
-                                          ? "bg-green-500 text-white"
-                                          : "bg-gray-200 text-gray-600"
+                                        ? "bg-green-500 text-white"
+                                        : "bg-gray-200 text-gray-600"
                                     }`}
                                   >
                                     {available}
@@ -349,20 +409,35 @@ export default function EnhancedAvailabilityCalendar() {
       {/* Modal */}
       {isModalOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm flex items-center justify-center z-50">
-          <div className="bg-white rounded-xl p-6 w-full max-w-md shadow-2xl" onClick={e => e.stopPropagation()}>
+          <div
+            className="bg-white rounded-xl p-6 w-full max-w-md shadow-2xl"
+            onClick={(e) => e.stopPropagation()}
+          >
             <div className="flex justify-between items-center mb-6">
-              <h3 className="text-xl font-bold text-gray-800">Bulk Update Inventory</h3>
+              <h3 className="text-xl font-bold text-gray-800">
+                Bulk Update Inventory
+              </h3>
               <button
                 onClick={closeModal}
                 className="text-gray-400 hover:text-gray-600 transition-colors"
               >
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
                   <line x1="18" y1="6" x2="6" y2="18"></line>
                   <line x1="6" y1="6" x2="18" y2="18"></line>
                 </svg>
               </button>
             </div>
-            
+
             <div className="space-y-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -382,7 +457,7 @@ export default function EnhancedAvailabilityCalendar() {
                   ))}
                 </select>
               </div>
-              
+
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
                   Number of Rooms Available
@@ -397,7 +472,7 @@ export default function EnhancedAvailabilityCalendar() {
                   min="0"
                 />
               </div>
-              
+
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -424,7 +499,7 @@ export default function EnhancedAvailabilityCalendar() {
                   />
                 </div>
               </div>
-              
+
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
                   Update Sold Out dates?
@@ -454,13 +529,23 @@ export default function EnhancedAvailabilityCalendar() {
                   </label>
                 </div>
               </div>
-              
+
               <div className="pt-4">
                 <button
                   onClick={handleUpdateInventory}
                   className="w-full bg-indigo-600 text-white px-4 py-3 rounded-lg shadow hover:bg-indigo-700 transition-colors font-medium flex items-center justify-center gap-2"
                 >
-                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
                     <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path>
                     <polyline points="17 21 17 13 7 13 7 21"></polyline>
                     <polyline points="7 3 7 8 15 8"></polyline>

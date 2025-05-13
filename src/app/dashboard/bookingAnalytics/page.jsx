@@ -115,7 +115,6 @@ const BookingAnalytics = () => {
   return (
     <div className="min-h-screen bg-gray-100 p-6">
       <div className="max-w-7xl mx-auto space-y-6">
-        {/* Header */}
         <div className="bg-white shadow-md rounded-lg p-6">
           <h2 className="text-xl font-semibold text-gray-800">
             BOOKING REPORTS PER DAY
@@ -175,7 +174,7 @@ const BookingAnalytics = () => {
           </div>
         </div>
 
-        {/* Reports Table - Only shown when a specific report is selected */}
+        {/* Reports Table */}
         {activeReport && (
           <div className="bg-white shadow-md rounded-lg p-6">
             <h3 className="text-lg font-semibold text-gray-800 mb-4">

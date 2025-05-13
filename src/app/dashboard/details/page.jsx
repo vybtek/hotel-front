@@ -45,7 +45,7 @@ export default function DetailsPage() {
 
   const [settings, setSettings] = useState({
     currentPassword: "********",
-    newPassword: "********",
+    newPassword: "*********",
     confirmPassword: "********",
   });
 
@@ -99,17 +99,7 @@ export default function DetailsPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-200 p-6">
-      {/* Navigation */}
-      {/* <nav className="flex justify-around bg-gradient-to-r from-blue-600 to-purple-600 text-white p-4 rounded-xl shadow-lg mb-6">
-        <button className="hover:text-yellow-300 font-semibold transition duration-300">BANK ACCOUNT</button>
-        <button className="hover:text-yellow-300 font-semibold transition duration-300">OVERVIEW</button>
-        <button className="hover:text-yellow-300 font-semibold transition duration-300">SOCIAL LINKS</button>
-        <button className="hover:text-yellow-300 font-semibold transition duration-300">MENU LIST</button>
-        <button className="hover:text-yellow-300 font-semibold transition duration-300">SETTINGS</button>
-        <button className="hover:text-yellow-300 font-semibold transition duration-300">DOCUMENTS</button>
-      </nav> */}
-
+    <div className="min-h-screen bg-white p-6">
       {/* Bank Account Section */}
       <div className="bg-white p-6 rounded-2xl shadow-2xl mb-6 border-l-8 border-blue-500 transform hover:-translate-y-2 transition duration-300">
         <h2 className="text-2xl font-bold text-blue-700 mb-4 border-b-2 border-blue-300 pb-2">
