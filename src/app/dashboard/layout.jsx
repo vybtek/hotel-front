@@ -2,10 +2,10 @@
 
 import { BookingProvider } from "../../context/BookingsContext/BookingContext";
 import { HotelGalleryProvider } from "../../context/HotelGalleryContext/HotelGalleryContext";
-import Navbar from "@/components/Dashboard/Navbar/Navbar";
-import Sidebar from "@/components/Dashboard/Sidebar/Sidebar";
+import Navbar from "../..//components/Dashboard/Navbar/Navbar";
+import Sidebar from "../..//components/Dashboard/Sidebar/Sidebar";
 import { useState, useEffect } from "react";
-import DashboardLoader from "@/components/dashboard/Loaders/DashboardLoader";
+import DashboardLoader from "../../components/Dashboard/Loaders/DashboardLoader";
 
 const Layout = ({ children }) => {
   const [loading, setLoading] = useState(true);
