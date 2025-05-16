@@ -1,5 +1,4 @@
 export default function Sidebar({ selectedRooms, rooms, onCheckout }) {
-  // Calculate totals for all selected rooms
   const calculateTotals = () => {
     let totalPrice = 0;
     let tax = 0;

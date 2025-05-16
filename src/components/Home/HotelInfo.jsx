@@ -1,11 +1,8 @@
-// HotelInfo.jsx
-import { useState, useEffect } from "react";
+import { useState} from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Autoplay, EffectFade, Thumbs } from "swiper/modules";
 import { FaMapMarkerAlt, FaStar, FaRegStar } from "react-icons/fa";
 import { useHotelGallery } from "../../context/HotelGalleryContext/HotelGalleryContext";
-
-// Import styles
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/effect-fade";
@@ -19,7 +16,7 @@ export default function HotelInfo() {
   const filledStars = Math.floor(rating);
   const hasHalfStar = rating % 1 >= 0.5;
 
-  // Ensure we have images to display
+  // Display images
   const displayImages =
     galleryImages.length > 0
       ? galleryImages.map((img) => img.src)

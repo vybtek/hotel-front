@@ -338,8 +338,6 @@ export default function RoomManager({
                   </div>
                 </div>
               </div>
-
-              {/* Action Button */}
               <button
                 className="w-full bg-green-600 hover:bg-green-700 text-white py-2 md:py-3 rounded-lg text-base md:text-lg font-semibold mt-2 transition-colors shadow-md focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
                 onClick={() => {

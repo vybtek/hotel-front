@@ -27,7 +27,7 @@ export default function Login() {
       style={{ backgroundImage: "url('/login.svg')" }}
     >
       <div className="w-full max-w-4xl">
-        {/* Login Form Container */}
+        {/* Login Form */}
         <div className="w-full md:w-1/2 mx-auto p-8 bg-white rounded-lg shadow-lg">
           <div className="w-full max-w-md mx-auto">
             <h1 className="text-3xl font-bold text-teal-600 mb-6 text-center">

@@ -17,7 +17,6 @@ const Layout = ({ children }) => {
 
   return (
     <div className="flex min-h-screen bg-gray-100 text-gray-800">
-      {/* Sidebar */}
       <aside className="h-screen bg-gray-100 border-r border-gray-200">
         <Sidebar />
       </aside>

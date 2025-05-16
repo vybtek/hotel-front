@@ -10,7 +10,7 @@ export default function Home() {
     // Simulate loading time for the HotelBooking component
     const timer = setTimeout(() => {
       setIsLoading(false);
-    }, 2500); // Adjust based on actual loading time
+    }, 100); // Adjust based on actual loading time
 
     return () => clearTimeout(timer);
   }, []);

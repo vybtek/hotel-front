@@ -68,8 +68,8 @@ export default function RoomCard({ room, updateSidebar }) {
           loop={true}
           className="h-full"
           style={{
-            "--swiper-navigation-color": "#ffffff", // White arrows
-            "--swiper-navigation-size": "24px", // Arrow size
+            "--swiper-navigation-color": "#ffffff",
+            "--swiper-navigation-size": "24px",
             "--swiper-pagination-color": "#111827",
             "--swiper-pagination-bullet-inactive-color": "#1F2937",
           }}

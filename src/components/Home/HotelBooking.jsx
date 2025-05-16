@@ -156,7 +156,6 @@ export default function HotelBooking() {
                   href="/help"
                   className="flex items-center gap-1 text-blue-600 "
                 >
-                  {/* <FiHelpCircle className="text-lg" /> */}
                   <span>Help</span>
                 </a>
 

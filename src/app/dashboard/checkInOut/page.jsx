@@ -1,147 +1,191 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo, useCallback } from "react";
+
+// Utility to get current date in YYYY-MM-DD format
+const getCurrentDate = () => {
+  const today = new Date();
+  return `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(
+    2,
+    "0"
+  )}-${String(today.getDate()).padStart(2, "0")}`;
+};
+
+// Utility to format date for display
+const formatDateForDisplay = (dateString) => {
+  return new Date(dateString).toLocaleDateString(undefined, {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+};
+
+// Memoized table row component
+const TableRow = ({ item }) => {
+  const formattedTime = useMemo(
+    () =>
+      new Date(item.time).toLocaleTimeString([], {
+        hour: "2-digit",
+        minute: "2-digit",
+      }),
+    [item.time]
+  );
+
+  return (
+    <tr className="border-b hover:bg-gray-50">
+      <td className="p-3">{item.id}</td>
+      <td className="p-3 font-medium">{item.name}</td>
+      <td className="p-3">{formattedTime}</td>
+      <td className="p-3">
+        <span
+          className={`inline-block px-2 py-1 rounded-full text-xs font-medium ${
+            item.type === "Check In"
+              ? "bg-blue-100 text-blue-800"
+              : "bg-green-100 text-green-800"
+          }`}
+        >
+          {item.type}
+        </span>
+      </td>
+    </tr>
+  );
+};
 
 export default function CheckInOutReport() {
   // State management
-  const [checkInData, setCheckInData] = useState([]);
-  const [checkOutData, setCheckOutData] = useState([]);
-  const [filter, setFilter] = useState("All"); // "All", "Check In", "Check Out"
+  const [filter, setFilter] = useState("All");
   const [selectedDate, setSelectedDate] = useState(getCurrentDate());
   const [displayedData, setDisplayedData] = useState([]);
 
-  // Get current date in YYYY-MM-DD format
-  function getCurrentDate() {
-    const today = new Date();
-    const year = today.getFullYear();
-    const month = String(today.getMonth() + 1).padStart(2, "0");
-    const day = String(today.getDate()).padStart(2, "0");
-    return `${year}-${month}-${day}`;
-  }
+  // Sample data
+  const dummyData = useMemo(
+    () => [
+      {
+        id: 1,
+        name: "John Doe",
+        time: "2025-04-25 09:00",
+        type: "Check In",
+        date: "2025-04-25",
+      },
+      {
+        id: 2,
+        name: "Jane Smith",
+        time: "2025-04-25 09:05",
+        type: "Check In",
+        date: "2025-04-25",
+      },
+      {
+        id: 3,
+        name: "Bob Johnson",
+        time: "2025-04-25 10:15",
+        type: "Check In",
+        date: "2025-04-25",
+      },
+      {
+        id: 4,
+        name: "John Doe",
+        time: "2025-04-25 17:00",
+        type: "Check Out",
+        date: "2025-04-25",
+      },
+      {
+        id: 5,
+        name: "Jane Smith",
+        time: "2025-04-25 17:05",
+        type: "Check Out",
+        date: "2025-04-25",
+      },
+      {
+        id: 6,
+        name: "Bob Johnson",
+        time: "2025-04-25 18:30",
+        type: "Check Out",
+        date: "2025-04-25",
+      },
+      {
+        id: 7,
+        name: "Alice Brown",
+        time: "2025-04-26 08:45",
+        type: "Check In",
+        date: "2025-04-26",
+      },
+      {
+        id: 8,
+        name: "Charlie Davis",
+        time: "2025-04-26 09:20",
+        type: "Check In",
+        date: "2025-04-26",
+      },
+      {
+        id: 9,
+        name: "Alice Brown",
+        time: "2025-04-26 16:50",
+        type: "Check Out",
+        date: "2025-04-26",
+      },
+      {
+        id: 10,
+        name: "Charlie Davis",
+        time: "2025-04-26 17:15",
+        type: "Check Out",
+        date: "2025-04-26",
+      },
+      {
+        id: 11,
+        name: "Eva Wilson",
+        time: "2025-05-02 08:30",
+        type: "Check In",
+        date: "2025-05-02",
+      },
+      {
+        id: 12,
+        name: "Frank Miller",
+        time: "2025-05-02 09:10",
+        type: "Check In",
+        date: "2025-05-02",
+      },
+    ],
+    []
+  );
 
-  // Sample data - in a real app this would come from an API
-  const dummyData = [
-    {
-      id: 1,
-      name: "John Doe",
-      time: "2025-04-25 09:00",
-      type: "Check In",
-      date: "2025-04-25",
-    },
-    {
-      id: 2,
-      name: "Jane Smith",
-      time: "2025-04-25 09:05",
-      type: "Check In",
-      date: "2025-04-25",
-    },
-    {
-      id: 3,
-      name: "Bob Johnson",
-      time: "2025-04-25 10:15",
-      type: "Check In",
-      date: "2025-04-25",
-    },
-    {
-      id: 4,
-      name: "John Doe",
-      time: "2025-04-25 17:00",
-      type: "Check Out",
-      date: "2025-04-25",
-    },
-    {
-      id: 5,
-      name: "Jane Smith",
-      time: "2025-04-25 17:05",
-      type: "Check Out",
-      date: "2025-04-25",
-    },
-    {
-      id: 6,
-      name: "Bob Johnson",
-      time: "2025-04-25 18:30",
-      type: "Check Out",
-      date: "2025-04-25",
-    },
-    {
-      id: 7,
-      name: "Alice Brown",
-      time: "2025-04-26 08:45",
-      type: "Check In",
-      date: "2025-04-26",
-    },
-    {
-      id: 8,
-      name: "Charlie Davis",
-      time: "2025-04-26 09:20",
-      type: "Check In",
-      date: "2025-04-26",
-    },
-    {
-      id: 9,
-      name: "Alice Brown",
-      time: "2025-04-26 16:50",
-      type: "Check Out",
-      date: "2025-04-26",
-    },
-    {
-      id: 10,
-      name: "Charlie Davis",
-      time: "2025-04-26 17:15",
-      type: "Check Out",
-      date: "2025-04-26",
-    },
-    {
-      id: 11,
-      name: "Eva Wilson",
-      time: "2025-05-02 08:30",
-      type: "Check In",
-      date: "2025-05-02",
-    },
-    {
-      id: 12,
-      name: "Frank Miller",
-      time: "2025-05-02 09:10",
-      type: "Check In",
-      date: "2025-05-02",
-    },
-  ];
-
-  // Update data when date or filter changes
-  useEffect(() => {
-    // Filter by selected date first
+  // Memoized filtered data
+  const { checkInData, checkOutData, filteredData } = useMemo(() => {
     const dataForSelectedDate = dummyData.filter(
       (item) => item.date === selectedDate
     );
-
-    // Then separate by check-in and check-out
-    const filteredCheckIn = dataForSelectedDate.filter(
+    const checkIn = dataForSelectedDate.filter(
       (item) => item.type === "Check In"
     );
-    const filteredCheckOut = dataForSelectedDate.filter(
+    const checkOut = dataForSelectedDate.filter(
       (item) => item.type === "Check Out"
     );
 
-    setCheckInData(filteredCheckIn);
-    setCheckOutData(filteredCheckOut);
-
-    // Update displayed data based on filter
+    let filtered;
     if (filter === "Check In") {
-      setDisplayedData(filteredCheckIn);
+      filtered = checkIn;
     } else if (filter === "Check Out") {
-      setDisplayedData(filteredCheckOut);
+      filtered = checkOut;
     } else {
-      // Sort combined data by time for "All" view
-      const allData = [...filteredCheckIn, ...filteredCheckOut];
-      allData.sort((a, b) => new Date(a.time) - new Date(b.time));
-      setDisplayedData(allData);
+      filtered = [...checkIn, ...checkOut].sort(
+        (a, b) => new Date(a.time) - new Date(b.time)
+      );
     }
-  }, [selectedDate, filter]);
 
-  // Format date for display (e.g., "May 2, 2025")
-  const formatDateForDisplay = (dateString) => {
-    const options = { year: "numeric", month: "long", day: "numeric" };
-    return new Date(dateString).toLocaleDateString(undefined, options);
-  };
+    return {
+      checkInData: checkIn,
+      checkOutData: checkOut,
+      filteredData: filtered,
+    };
+  }, [dummyData, selectedDate, filter]);
+
+  // Update displayed data
+  useEffect(() => {
+    setDisplayedData(filteredData);
+  }, [filteredData]);
+
+  // Handle filter change
+  const handleFilterChange = useCallback((newFilter) => {
+    setFilter(newFilter);
+  }, []);
 
   return (
     <div className="min-h-screen bg-gray-100 p-4">
@@ -165,36 +209,25 @@ export default function CheckInOutReport() {
 
       {/* Filter buttons */}
       <div className="flex justify-around mb-6">
-        <button
-          className={`px-4 py-2 rounded transition-colors ${
-            filter === "Check In"
-              ? "bg-blue-500 text-white"
-              : "bg-gray-200 hover:bg-gray-300 text-gray-800"
-          }`}
-          onClick={() => setFilter("Check In")}
-        >
-          CHECK IN
-        </button>
-        <button
-          className={`px-4 py-2 rounded transition-colors ${
-            filter === "Check Out"
-              ? "bg-green-500 text-white"
-              : "bg-gray-200 hover:bg-gray-300 text-gray-800"
-          }`}
-          onClick={() => setFilter("Check Out")}
-        >
-          CHECK OUT
-        </button>
-        <button
-          className={`px-4 py-2 rounded transition-colors ${
-            filter === "All"
-              ? "bg-purple-500 text-white"
-              : "bg-gray-200 hover:bg-gray-300 text-gray-800"
-          }`}
-          onClick={() => setFilter("All")}
-        >
-          ALL
-        </button>
+        {["Check In", "Check Out", "All"].map((type) => (
+          <button
+            key={type}
+            className={`px-4 py-2 rounded transition-colors ${
+              filter === type
+                ? `bg-${
+                    type === "Check In"
+                      ? "blue"
+                      : type === "Check Out"
+                      ? "green"
+                      : "purple"
+                  }-500 text-white`
+                : "bg-gray-200 hover:bg-gray-300 text-gray-800"
+            }`}
+            onClick={() => handleFilterChange(type)}
+          >
+            {type.toUpperCase()}
+          </button>
+        ))}
       </div>
 
       {/* Summary box */}
@@ -255,27 +288,7 @@ export default function CheckInOutReport() {
               </thead>
               <tbody>
                 {displayedData.map((item) => (
-                  <tr key={item.id} className="border-b hover:bg-gray-50">
-                    <td className="p-3">{item.id}</td>
-                    <td className="p-3 font-medium">{item.name}</td>
-                    <td className="p-3">
-                      {new Date(item.time).toLocaleTimeString([], {
-                        hour: "2-digit",
-                        minute: "2-digit",
-                      })}
-                    </td>
-                    <td className="p-3">
-                      <span
-                        className={`inline-block px-2 py-1 rounded-full text-xs font-medium ${
-                          item.type === "Check In"
-                            ? "bg-blue-100 text-blue-800"
-                            : "bg-green-100 text-green-800"
-                        }`}
-                      >
-                        {item.type}
-                      </span>
-                    </td>
-                  </tr>
+                  <TableRow key={item.id} item={item} />
                 ))}
               </tbody>
             </table>

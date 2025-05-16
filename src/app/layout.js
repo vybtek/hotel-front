@@ -1,6 +1,5 @@
 import "./globals.css";
-import { HotelGalleryProvider } from '../context/HotelGalleryContext/HotelGalleryContext';
-
+import { HotelGalleryProvider } from "../context/HotelGalleryContext/HotelGalleryContext";
 
 export const metadata = {
   title: "Aurika ",
@@ -10,8 +9,8 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-       <HotelGalleryProvider>
-      <body>{children}</body>
+      <HotelGalleryProvider>
+        <body>{children}</body>
       </HotelGalleryProvider>
     </html>
   );

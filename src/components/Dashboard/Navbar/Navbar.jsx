@@ -81,15 +81,6 @@ const Navbar = () => {
                 </span>
                 My Bookings
               </li>
-              {/* <li 
-                className="p-2 hover:bg-gray-200 cursor-pointer flex items-center"
-                onClick={() => handleNavigation('/settings')}
-              >
-                <span className="mr-2">
-                  <IoMdSettings />
-                </span>
-                Settings
-              </li> */}
               <li
                 className="p-2 hover:bg-gray-200 cursor-pointer flex items-center"
                 onClick={handleLogout}
